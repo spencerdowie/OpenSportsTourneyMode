@@ -1,15 +1,16 @@
 import Button from "@/components/button";
+import PageHeader from "@/components/page-header";
 import TextInput from "@/components/text-input";
 import { router } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function Login() {
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => router.back()}>
-        <Text>{"<"}</Text>
-      </Pressable>
-      <Text>Login</Text>
+      <PageHeader
+        title="Login"
+        subtitle="Step 1 of 1 : Player Account Access"
+      />
       <View style={styles.inputHolder}>
         <TextInput label="Email or Phone" />
         <TextInput label="Password" />
