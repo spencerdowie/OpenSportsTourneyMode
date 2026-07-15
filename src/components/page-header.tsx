@@ -1,17 +1,16 @@
 import MaterialDesignIcons from "@react-native-vector-icons/material-design-icons";
-import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
 type PageHeaderProps = {
   title: string;
   subtitle: string;
-  backBtn?: boolean;
+  backBtn?: () => any;
 };
 
 export default function PageHeader({
   title,
   subtitle,
-  backBtn = true
+  backBtn
 }: PageHeaderProps) {
   return (
     <View
@@ -21,11 +20,7 @@ export default function PageHeader({
         width: "100%"
       }}>
       {backBtn ? (
-        <MaterialDesignIcons
-          name="chevron-left"
-          size={34}
-          onPress={() => router.back()}
-        />
+        <MaterialDesignIcons name="chevron-left" size={34} onPress={backBtn} />
       ) : null}
       <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>

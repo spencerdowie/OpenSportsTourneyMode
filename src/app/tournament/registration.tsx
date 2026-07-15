@@ -3,6 +3,7 @@ import PageHeader from "@/components/page-header";
 import Selector from "@/components/selector";
 import StatusBox from "@/components/status-box";
 import TextInput from "@/components/text-input";
+import { router } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
@@ -16,7 +17,6 @@ export default function Registration() {
           <PageHeader
             title="Join Tournament"
             subtitle={`Step ${regStep} of 2`}
-            backBtn={false}
           />
           <StatusBox
             title="Scan Confirmed"
@@ -34,11 +34,7 @@ export default function Registration() {
     } else {
       return (
         <View>
-          <PageHeader
-            title="You're Ready"
-            subtitle="Step 2 of 2"
-            backBtn={false}
-          />
+          <PageHeader title="You're Ready" subtitle="Step 2 of 2" />
           <StatusBox
             style="wait"
             title="Almost Done"
@@ -63,7 +59,15 @@ export default function Registration() {
 
   return (
     <View style={styles.container}>
-      <PageHeader title="Humber Tournament Open" subtitle="Organizer" />
+      <PageHeader
+        title="Humber Tournament Open"
+        subtitle="Organizer"
+        backBtn={
+          regStep > 1
+            ? () => setRegStep(regStep - 1)
+            : () => router.navigate("/")
+        }
+      />
       {RegPage()}
     </View>
   );
