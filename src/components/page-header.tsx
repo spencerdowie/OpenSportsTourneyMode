@@ -17,7 +17,8 @@ export default function PageHeader({
       style={{
         flexDirection: "row",
         justifyContent: "flex-start",
-        width: "100%"
+        width: "100%",
+        marginVertical: 10
       }}>
       {backBtn ? (
         <MaterialDesignIcons name="chevron-left" size={34} onPress={backBtn} />

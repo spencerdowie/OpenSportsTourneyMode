@@ -1,8 +1,8 @@
 import {
-    GestureResponderEvent,
-    Pressable,
-    StyleSheet,
-    Text
+  GestureResponderEvent,
+  Pressable,
+  StyleSheet,
+  Text
 } from "react-native";
 
 type ButtonProps = {

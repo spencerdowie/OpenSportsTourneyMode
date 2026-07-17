@@ -9,6 +9,16 @@ import { StyleSheet, View } from "react-native";
 
 export default function Registration() {
   const [regStep, setRegStep] = useState(1);
+  const [regData, setRegData] = useState<{
+    name: string;
+    skillLevel: "New" | "Casual" | "Skilled";
+    options: {
+      hasGear: boolean;
+      needsPartner: boolean;
+      leavingEarly: boolean;
+      casualPlay: boolean;
+    };
+  }>();
 
   function RegPage() {
     if (regStep == 1) {
@@ -19,6 +29,7 @@ export default function Registration() {
             subtitle={`Step ${regStep} of 2`}
           />
           <StatusBox
+            type="confirm"
             title="Scan Confirmed"
             detail="You're joining as a guest"
           />
@@ -27,16 +38,18 @@ export default function Registration() {
             label="Experience Level"
             options={["New", "Casual", "Skilled"]}
           />
-          <Button text="Next" onPress={() => setRegStep(2)} />
-          <Button style="light" text="I already have an account" />
+          <View style={{ marginTop: 20, gap: 20 }}>
+            <Button text="Next" onPress={() => setRegStep(2)} />
+            <Button style="light" text="I already have an account" />
+          </View>
         </View>
       );
     } else {
       return (
         <View>
-          <PageHeader title="You're Ready" subtitle="Step 2 of 2" />
+          <PageHeader title="Confirm Readiness" subtitle="Step 2 of 2" />
           <StatusBox
-            style="wait"
+            type="wait"
             title="Almost Done"
             detail="Tell the organizer what matters"
           />
@@ -51,7 +64,10 @@ export default function Registration() {
             multi={true}
             boxes={true}
           />
-          <Button text="Save & join event" />
+          <Button
+            text="Save & join event"
+            onPress={() => router.navigate("/tournament/checkin-confirm")}
+          />
         </View>
       );
     }
@@ -79,6 +95,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 350,
     margin: "auto",
-    gap: 10
+    gap: 20
   }
 });

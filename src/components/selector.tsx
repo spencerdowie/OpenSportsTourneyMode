@@ -32,8 +32,10 @@ export default function Selector({
     );
   }
 
-  function ButtonStyle(boxes: boolean) {
-    return boxes ? [styles.button, styles.buttonBox] : styles.button;
+  function ButtonStyle(boxes: boolean, isSelection: boolean) {
+    return boxes
+      ? [styles.button, styles.buttonBox]
+      : [styles.button, isSelection && styles.buttonSelected];
   }
 
   return (
@@ -43,7 +45,7 @@ export default function Selector({
         {options.map((option) => (
           <Pressable
             key={option}
-            style={ButtonStyle(boxes)}
+            style={ButtonStyle(boxes, selection == option)}
             onPress={() => {
               if (multi) {
                 setMultiState({ ...multiState, [option]: !multiState[option] });
@@ -51,10 +53,18 @@ export default function Selector({
                 setSelection(option);
               }
             }}>
-            {boxes
-              ? CheckBox(multi ? multiState[option] : selection == option)
-              : null}
-            <Text style={styles.buttonText}>{option}</Text>
+            {boxes &&
+              CheckBox(multi ? multiState[option] : selection == option)}
+            <Text
+              style={[
+                styles.buttonText,
+                selection == option && {
+                  color: "#fff",
+                  fontWeight: "bold"
+                }
+              ]}>
+              {option}
+            </Text>
           </Pressable>
         ))}
       </View>
@@ -65,6 +75,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     width: 350,
+    marginTop: 10,
     gap: 10
   },
   label: {
@@ -95,6 +106,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexGrow: 1,
     flexBasis: 0
+  },
+  buttonSelected: {
+    backgroundColor: "#13732F"
   },
   buttonBox: {
     justifyContent: "flex-start",

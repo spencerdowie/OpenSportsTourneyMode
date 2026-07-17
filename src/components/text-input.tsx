@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     width: 350,
+    marginTop: 10,
     gap: 10
   },
   label: {

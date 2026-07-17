@@ -10,6 +10,7 @@ export default function Register() {
       <PageHeader
         title="Sign Up"
         subtitle="Step 1 of 1 : Player Account Access"
+        backBtn={() => router.navigate("/")}
       />
       <View style={styles.inputHolder}>
         <TextInput label="Name" />
