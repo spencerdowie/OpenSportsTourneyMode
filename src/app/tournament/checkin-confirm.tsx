@@ -19,8 +19,8 @@ export default function ConfirmCheckin() {
         title="Next update appears here"
         detail="Court, team, start time, and any organizer messages."
       />
-      <Button text="Get the app" style="light" />
-      <Button text="Go to Player Dashboard" />
+      <Button type="light">Get the app</Button>
+      <Button>Go to Player Dashboard</Button>
     </View>
   );
 }

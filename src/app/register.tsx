@@ -18,10 +18,9 @@ export default function Register() {
         <TextInput label="Password" />
       </View>
       <Text style={styles.forgotPassword}>Already have an account? Log In</Text>
-      <Button
-        text="Register"
-        onPress={() => router.navigate("/tournament/registration")}
-      />
+      <Button onPress={() => router.navigate("/tournament/registration")}>
+        Register
+      </Button>
     </View>
   );
 }

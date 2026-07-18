@@ -39,8 +39,8 @@ export default function Registration() {
             options={["New", "Casual", "Skilled"]}
           />
           <View style={{ marginTop: 20, gap: 20 }}>
-            <Button text="Next" onPress={() => setRegStep(2)} />
-            <Button style="light" text="I already have an account" />
+            <Button onPress={() => setRegStep(2)}>Next</Button>
+            <Button type="light">I already have an account</Button>
           </View>
         </View>
       );
@@ -61,13 +61,13 @@ export default function Registration() {
               "I prefer casual play"
             ]}
             direction="vert"
-            multi={true}
-            boxes={true}
+            multi
+            boxes
           />
           <Button
-            text="Save & join event"
-            onPress={() => router.navigate("/tournament/checkin-confirm")}
-          />
+            onPress={() => router.navigate("/tournament/checkin-confirm")}>
+            Save & join event
+          </Button>
         </View>
       );
     }
