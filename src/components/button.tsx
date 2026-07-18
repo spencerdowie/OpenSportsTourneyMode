@@ -5,50 +5,78 @@ import {
   Text
 } from "react-native";
 
-type ButtonProps = {
-  text: string;
+interface ButtonProps extends React.PropsWithChildren {
   onPress?: (event: GestureResponderEvent) => void;
-  style?: "dark" | "light";
-};
+  type?: "dark" | "light" | "warn" | "error";
+  disabled?: boolean;
+}
 
 export default function Button({
-  text,
+  children,
   onPress = () => {},
-  style = "dark"
+  type = "dark"
 }: ButtonProps) {
+  function GetStyle() {}
   return (
     <Pressable
-      style={
-        style == "dark"
-          ? styles.buttonDark
-          : [styles.buttonDark, styles.buttonLight]
-      }
+      style={() => {
+        switch (type) {
+          case "dark":
+            return styles.buttonDark;
+          case "light":
+            return styles.buttonLight;
+          case "warn":
+            return styles.buttonWarn;
+          case "error":
+            return styles.buttonError;
+        }
+      }}
       onPress={onPress}>
       <Text
         style={
-          style == "dark"
-            ? styles.buttonDarkText
-            : [styles.buttonDarkText, styles.buttonLightText]
+          type == "light"
+            ? [
+                styles.buttonText,
+                {
+                  color: "#13732F"
+                }
+              ]
+            : styles.buttonText
         }>
-        {text}
+        {children}
       </Text>
     </Pressable>
   );
 }
-const styles = StyleSheet.create({
-  buttonDark: {
+const buttonStyle = StyleSheet.create({
+  button: {
+    backgroundColor: "white",
     borderRadius: 5,
-    backgroundColor: "#13732F",
     width: 350,
     height: 60,
     justifyContent: "center"
+  }
+}).button;
+const buttonTextStyle = {};
+const styles = StyleSheet.create({
+  buttonDark: {
+    ...buttonStyle,
+    backgroundColor: "#13732F"
   },
   buttonLight: {
-    backgroundColor: "white",
+    ...buttonStyle,
     borderColor: "#13732F",
     borderWidth: 2
   },
-  buttonDarkText: {
+  buttonWarn: {
+    ...buttonStyle,
+    backgroundColor: "#C88C2C"
+  },
+  buttonError: {
+    ...buttonStyle,
+    backgroundColor: "#A10000"
+  },
+  buttonText: {
     color: "white",
     textAlign: "center",
     fontSize: 20,

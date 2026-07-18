@@ -17,12 +17,12 @@ export default function Index() {
         <Text style={styles.osTitle}>OpenSports</Text>
       </View>
       <View id="login-btns" style={styles.loginBtnHolder}>
-        <Button onPress={() => router.navigate("/login")} text="Login" />
+        <Button onPress={() => router.navigate("/login")}>Login</Button>
         <Button
           onPress={() => router.navigate("/tournament/registration")}
-          style="light"
-          text="Continue as Guest"
-        />
+          type="light">
+          Continue as Guest
+        </Button>
       </View>
     </View>
   );

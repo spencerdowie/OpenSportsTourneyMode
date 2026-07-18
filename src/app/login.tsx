@@ -18,15 +18,12 @@ export default function Login() {
       </View>
       <Text style={styles.forgotPassword}>Forgot Password?</Text>
       <View style={styles.buttonHolder}>
-        <Button
-          text="Login"
-          onPress={() => router.navigate("/tournament/registration")}
-        />
-        <Button
-          style="light"
-          text="Register"
-          onPress={() => router.navigate("/register")}
-        />
+        <Button onPress={() => router.navigate("/tournament/registration")}>
+          Login
+        </Button>
+        <Button type="light" onPress={() => router.navigate("/register")}>
+          Register
+        </Button>
       </View>
     </View>
   );
