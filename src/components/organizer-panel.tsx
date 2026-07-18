@@ -1,6 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 
-export default function OrganizerPanel() {
+type OrgPanelProps = {
+  text: string;
+};
+
+export default function OrganizerPanel({ text }: OrgPanelProps) {
   return (
     <View>
       <Text style={styles.mainText}>21/24</Text>
