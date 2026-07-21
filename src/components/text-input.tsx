@@ -3,15 +3,22 @@ import { TextInput as RNTextInput, StyleSheet, Text, View } from "react-native";
 type TextInputProps = {
   label: string;
   placeholder?: string;
+  onChange: (text: string) => void;
 };
 
-export default function TextInput({ label, placeholder }: TextInputProps) {
+export default function TextInput({
+  label,
+  placeholder,
+  onChange
+}: TextInputProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <RNTextInput
         style={styles.inputBox}
-        placeholder={placeholder}></RNTextInput>
+        placeholder={placeholder}
+        onChangeText={onChange}
+      />
     </View>
   );
 }
