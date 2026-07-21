@@ -22,8 +22,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#118A2B",
     paddingVertical: 10,
-    paddingHorizontal: 15,
-    marginVertical: 15
+    paddingHorizontal: 15
   },
   teamRow: {
     flexDirection: "row",

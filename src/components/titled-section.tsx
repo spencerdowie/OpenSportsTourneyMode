@@ -6,9 +6,14 @@ interface TitledSectionProps extends React.PropsWithChildren {
 export default function TitledSection({ title, children }: TitledSectionProps) {
   return (
     <>
-      <View id="title">
+      <View
+        id="title"
+        style={{
+          borderBottomWidth: 2,
+          borderColor: "#E3E3E3",
+          marginVertical: 15
+        }}>
         <Text style={{ fontWeight: "bold" }}>{title}</Text>
-        <br />
       </View>
       {children}
     </>
