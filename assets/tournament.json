@@ -1,0 +1,54 @@
+[
+    {
+        "id": 1,
+        "name": "Humber Tournament Open",
+        "organizer": {
+            "orgName": "OpenSports",
+            "admin": "Josh Clavir"
+        },
+        "date": "Mon, June 26, 2026",
+        "startTime": "9:00 AM",
+        "location": "Humber Polytechnic North Campus",
+        "registrationOptions": [
+            {
+                "value": "hasGear",
+                "name": "I brought gear"
+            },
+            {
+                "value": "needsPartner",
+                "name": "I need a partner"
+            },
+            {
+                "value": "leavingEarly",
+                "name": "I'm leaving early"
+            },
+            {
+                "value": "casualPlay",
+                "name": "I prefer casual play"
+            }
+        ],
+        "players": [
+            {
+                "id": 0,
+                "name": "Spencer"
+            }
+        ],
+        "teams": [
+            {
+                "id": 0,
+                "name": "ASTUdio"
+            }
+        ],
+        "format": {
+            "type": "",
+            "matches": "",
+            "teams": ""
+        },
+        "rules": {
+            "scoring": "",
+            "checkin": "",
+            "courtSwitch": "",
+            "tieBreak": ""
+        }
+    }
+]
