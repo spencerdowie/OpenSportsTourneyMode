@@ -1,27 +1,27 @@
 import PageHeader from "@/components/page-header";
 import { router } from "expo-router";
 import { useState } from "react";
-import { FlatList, Pressable, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 type Player = {
   name: string;
   status: "checkedin" | "registered" | "waitlist";
 };
 const PlayerList: Player[] = [
-  { name: "Player 1", status: "checkedin" },
-  { name: "Player 2", status: "checkedin" },
-  { name: "Player 3", status: "checkedin" },
-  { name: "Player 4", status: "checkedin" },
-  { name: "Player 5", status: "checkedin" },
-  { name: "Player 6", status: "registered" },
-  { name: "Player 7", status: "registered" },
-  { name: "Player 8", status: "registered" },
-  { name: "Player 9", status: "checkedin" },
-  { name: "Player 10", status: "checkedin" },
-  { name: "Player 11", status: "checkedin" },
-  { name: "Player 12", status: "checkedin" },
-  { name: "Player 13", status: "waitlist" },
-  { name: "Player 14", status: "waitlist" },
-  { name: "Player 15", status: "waitlist" }
+  { name: "Player A", status: "checkedin" },
+  { name: "Player B", status: "checkedin" },
+  { name: "Player C", status: "checkedin" },
+  { name: "Player D", status: "checkedin" },
+  { name: "Player E", status: "checkedin" },
+  { name: "Player F", status: "registered" },
+  { name: "Player G", status: "registered" },
+  { name: "Player H", status: "registered" },
+  { name: "Player I", status: "checkedin" },
+  { name: "Player J", status: "checkedin" },
+  { name: "Player K", status: "checkedin" },
+  { name: "Player L", status: "checkedin" },
+  { name: "Player M", status: "waitlist" },
+  { name: "Player N", status: "waitlist" },
+  { name: "Player O", status: "waitlist" }
 ];
 export default function CheckinManager() {
   const [filter, setFilter] = useState<
@@ -34,12 +34,17 @@ export default function CheckinManager() {
         subtitle="Updated 1 min ago"
         backBtn={() => router.navigate("/organizer")}
       />
-      <View style={{ marginLeft: 20 }}>
-        <View style={{ flexDirection: "row", gap: 10 }}>
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 10,
+            justifyContent: "space-around"
+          }}>
           <Pressable
             onPress={() => setFilter("all")}
             style={[
-              { paddingHorizontal: 10 },
+              styles.tabs,
               filter == "all" && { backgroundColor: "grey" }
             ]}>
             <Text>All</Text>
@@ -47,24 +52,24 @@ export default function CheckinManager() {
           <Pressable
             onPress={() => setFilter("checkedin")}
             style={[
-              { paddingHorizontal: 10 },
-              filter == "checkedin" && { backgroundColor: "grey" }
+              styles.tabs,
+              filter == "checkedin" && { backgroundColor: "#118A2B" }
             ]}>
             <Text>Checked-in</Text>
           </Pressable>
           <Pressable
             onPress={() => setFilter("registered")}
             style={[
-              { paddingHorizontal: 10 },
-              filter == "registered" && { backgroundColor: "grey" }
+              styles.tabs,
+              filter == "registered" && { backgroundColor: "#A10000" }
             ]}>
             <Text>Registered</Text>
           </Pressable>
           <Pressable
             onPress={() => setFilter("waitlist")}
             style={[
-              { paddingHorizontal: 10 },
-              filter == "waitlist" && { backgroundColor: "grey" }
+              styles.tabs,
+              filter == "waitlist" && { backgroundColor: "#3E73AA" }
             ]}>
             <Text>Waitlist</Text>
           </Pressable>
@@ -73,13 +78,26 @@ export default function CheckinManager() {
           data={PlayerList.filter(
             (player) => filter == "all" || player.status == filter
           )}
-          renderItem={({ item }) => (
-            <Text>
-              {item.name} - {item.status}
-            </Text>
+          renderItem={({ item, index }) => (
+            <View
+              style={[
+                {
+                  height: 50,
+                  paddingHorizontal: 20,
+                  paddingVertical: 10
+                },
+                index % 2 == 0 ? { backgroundColor: "#d8ffd4" } : {}
+              ]}>
+              <Text style={{ fontSize: 16 }}>{item.name}</Text>
+              <Text>{item.status}</Text>
+            </View>
           )}
         />
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  tabs: { flexGrow: 1, flexBasis: 0, alignItems: "center" }
+});
