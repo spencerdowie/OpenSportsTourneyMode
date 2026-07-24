@@ -1,15 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
 
 type OrgPanelProps = {
-  text: string;
+  mainText: string;
+  subText: string;
+  messageText?: string;
 };
 
-export default function OrganizerPanel({ text }: OrgPanelProps) {
+export default function OrganizerPanel({
+  mainText,
+  subText,
+  messageText
+}: OrgPanelProps) {
   return (
-    <View>
-      <Text style={styles.mainText}>21/24</Text>
-      <Text style={styles.subHeader}>Checked-In</Text>
-      <Text style={styles.messageText}>Check-in closes in 20 min</Text>
+    <View style={{ alignItems: "center" }}>
+      <Text style={styles.mainText}>{mainText}</Text>
+      <Text style={styles.subHeader}>{subText}</Text>
+      <Text style={styles.messageText}>{messageText}</Text>
     </View>
   );
 }
