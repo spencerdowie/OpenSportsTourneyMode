@@ -13,9 +13,9 @@ export default function Register() {
         backBtn={() => router.navigate("/")}
       />
       <View style={styles.inputHolder}>
-        <TextInput label="Name" />
-        <TextInput label="Email or Phone" />
-        <TextInput label="Password" />
+        <TextInput label="Name" onChange={() => {}} />
+        <TextInput label="Email or Phone" onChange={() => {}} />
+        <TextInput label="Password" onChange={() => {}} />
       </View>
       <Text style={styles.forgotPassword}>Already have an account? Log In</Text>
       <Button onPress={() => router.navigate("/tournament/registration")}>

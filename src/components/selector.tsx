@@ -4,10 +4,11 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type SelectorProps = {
   label?: string;
-  options: string[];
+  options: { value: string; name: string }[];
   direction?: "hor" | "vert";
   multi?: boolean;
   boxes?: boolean;
+  onChange: (selection: string, value: boolean) => void;
 };
 
 export default function Selector({
@@ -15,7 +16,8 @@ export default function Selector({
   options,
   direction = "hor",
   multi = false,
-  boxes = false
+  boxes = false,
+  onChange
 }: SelectorProps) {
   const [selection, setSelection] = useState("");
   const [multiState, setMultiState] = useState<{ [option: string]: boolean }>(
@@ -42,28 +44,30 @@ export default function Selector({
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <View style={direction == "vert" ? styles.optionsVert : styles.options}>
-        {options.map((option) => (
+        {options.map(({ value, name }) => (
           <Pressable
-            key={option}
-            style={ButtonStyle(boxes, selection == option)}
+            key={value}
+            style={ButtonStyle(boxes, selection == value)}
             onPress={() => {
               if (multi) {
-                setMultiState({ ...multiState, [option]: !multiState[option] });
+                let newValue = !multiState[value];
+                setMultiState({ ...multiState, [value]: newValue });
+                onChange(value, newValue);
               } else {
-                setSelection(option);
+                setSelection(value);
+                onChange(value, true);
               }
             }}>
-            {boxes &&
-              CheckBox(multi ? multiState[option] : selection == option)}
+            {boxes && CheckBox(multi ? multiState[value] : selection == value)}
             <Text
               style={[
                 styles.buttonText,
-                selection == option && {
+                selection == value && {
                   color: "#fff",
                   fontWeight: "bold"
                 }
               ]}>
-              {option}
+              {name}
             </Text>
           </Pressable>
         ))}

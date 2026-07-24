@@ -1,24 +1,52 @@
+import data from "@/assets/tournament.json";
 import Button from "@/components/button";
 import PageHeader from "@/components/page-header";
 import Selector from "@/components/selector";
 import StatusBox from "@/components/status-box";
 import TextInput from "@/components/text-input";
-import { router } from "expo-router";
-import { useState } from "react";
+import { router, useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
+
+type TournamentData = {
+  id: number;
+  name: string;
+  organizer: { orgName: string; admin: string };
+  date: string;
+  location: string;
+  registrationOptions: { value: string; name: string }[];
+};
 
 export default function Registration() {
   const [regStep, setRegStep] = useState(1);
   const [regData, setRegData] = useState<{
     name: string;
-    skillLevel: "New" | "Casual" | "Skilled";
-    options: {
-      hasGear: boolean;
-      needsPartner: boolean;
-      leavingEarly: boolean;
-      casualPlay: boolean;
-    };
+    skillLevel: string;
+    options: { [option: string]: boolean };
   }>();
+  const [tournamentInfo, SetTournamentInfo] = useState<TournamentData>({
+    id: -1,
+    name: "Test",
+    organizer: { orgName: "Test", admin: "Test" },
+    date: "",
+    location: "",
+    registrationOptions: []
+  });
+  const { tournament: id } = useLocalSearchParams<{ tournament?: string }>();
+  useEffect(() => {
+    if (id) {
+      let tournament = data.find((t) => t.id == Number.parseInt(id));
+      if (tournament) {
+        SetTournamentInfo(tournament);
+        let options: { [option: string]: boolean } = {};
+        tournament.registrationOptions.forEach(
+          (option) => (options[option.value] = false)
+        );
+        console.log(options);
+        setRegData({ name: "", skillLevel: "", options: options });
+      }
+    }
+  }, [tournamentInfo]);
 
   function RegPage() {
     if (regStep == 1) {
@@ -33,10 +61,30 @@ export default function Registration() {
             title="Scan Confirmed"
             detail="You're joining as a guest"
           />
-          <TextInput label="Firstname or nickname" placeholder="e.g. Bob" />
+          <TextInput
+            label="Firstname or nickname"
+            placeholder="e.g. Bob"
+            onChange={(text) => {
+              //console.log(text);
+              if (regData) {
+                setRegData({ ...regData, name: text });
+              }
+            }}
+          />
           <Selector
             label="Experience Level"
-            options={["New", "Casual", "Skilled"]}
+            options={["New", "Casual", "Skilled"].map((option) => {
+              return { value: option, name: option };
+            })}
+            onChange={(selection) => {
+              //console.log(selection)
+              if (regData) {
+                setRegData({
+                  ...regData,
+                  skillLevel: selection
+                });
+              }
+            }}
           />
           <View style={{ marginTop: 20, gap: 20 }}>
             <Button onPress={() => setRegStep(2)}>Next</Button>
@@ -54,18 +102,33 @@ export default function Registration() {
             detail="Tell the organizer what matters"
           />
           <Selector
-            options={[
-              "I brought gear",
-              "I need a partner",
-              "I'm leaving early",
-              "I prefer casual play"
-            ]}
+            options={tournamentInfo.registrationOptions}
+            onChange={(selection, value) => {
+              //console.log(selection);
+              if (regData) {
+                let options = regData.options;
+                if (options) {
+                  options[selection] = value;
+                  setRegData({
+                    ...regData,
+                    options: options
+                  });
+                }
+              }
+            }}
             direction="vert"
             multi
             boxes
           />
           <Button
-            onPress={() => router.navigate("/tournament/checkin-confirm")}>
+            onPress={() => {
+              console.log(regData);
+              if (regData) {
+                router.navigate(
+                  `/tournament/checkin-confirm?tournament=${id}&playerName=${regData.name}&skillLevel=${regData.skillLevel}&options=${JSON.stringify(regData.options)}`
+                );
+              }
+            }}>
             Save & join event
           </Button>
         </View>
@@ -76,8 +139,8 @@ export default function Registration() {
   return (
     <View style={styles.container}>
       <PageHeader
-        title="Humber Tournament Open"
-        subtitle="Organizer"
+        title={tournamentInfo.name}
+        subtitle={tournamentInfo.organizer.orgName}
         backBtn={
           regStep > 1
             ? () => setRegStep(regStep - 1)
