@@ -2,7 +2,7 @@ import data from "@/assets/tournament.json";
 import Button from "@/components/button";
 import PageHeader from "@/components/page-header";
 import StatusBox from "@/components/status-box";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
@@ -87,7 +87,9 @@ export default function ConfirmCheckin() {
         detail="Court, team, start time, and any organizer messages."
       />
       <Button type="light">Get the app</Button>
-      <Button>Go to Player Dashboard</Button>
+      <Button onPress={() => router.navigate("/player")}>
+        Go to Player Dashboard
+      </Button>
     </View>
   );
 }
