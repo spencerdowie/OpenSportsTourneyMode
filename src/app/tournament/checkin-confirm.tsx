@@ -3,9 +3,11 @@ import Button from "@/components/button";
 import PageHeader from "@/components/page-header";
 import StatusBox from "@/components/status-box";
 import { router, useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { AppContext } from "../_layout";
 
+//Mock database schema
 type TournamentData = {
   id: number;
   name: string;
@@ -13,8 +15,6 @@ type TournamentData = {
   date: string;
   location: string;
   registrationOptions: { value: string; name: string }[];
-  players: { id: number; name: string }[];
-  teams: { id: number; name: string }[];
 };
 
 export default function ConfirmCheckin() {
@@ -24,45 +24,22 @@ export default function ConfirmCheckin() {
     organizer: { orgName: "Test", admin: "Test" },
     date: "",
     location: "",
-    registrationOptions: [],
-    players: [],
-    teams: []
+    registrationOptions: []
   });
-  const [playerInfo, SetPlayerInfo] = useState<{
-    name: string;
-    skillLevel: string;
-    options: { [name: string]: boolean };
-  }>({
-    name: "Test",
-    skillLevel: "",
-    options: {}
-  });
-  const {
-    tournament: id,
-    playerName,
-    skillLevel,
-    options: optionsString
-  } = useLocalSearchParams<{
+  const { name, skillLevel, options } = useContext(AppContext);
+  const { tournament: id } = useLocalSearchParams<{
     tournament?: string;
-    playerName?: string;
-    skillLevel?: string;
-    options?: string;
   }>();
+
   useEffect(() => {
     if (id) {
       let tournament = data.find((t) => t.id == Number.parseInt(id));
       if (tournament) {
         SetTournamentInfo(tournament);
       }
-      if (playerName && skillLevel && optionsString) {
-        SetPlayerInfo({
-          name: playerName,
-          skillLevel: skillLevel,
-          options: JSON.parse(optionsString)
-        });
-      }
     }
   }, [tournamentInfo]);
+
   return (
     <View style={styles.container}>
       <PageHeader
@@ -78,8 +55,8 @@ export default function ConfirmCheckin() {
       />
       <StatusBox
         title="Player Card"
-        detail={`${playerInfo.name} | ${playerInfo.skillLevel} | ${tournamentInfo.registrationOptions
-          .filter((option) => playerInfo.options[option.value])
+        detail={`${name} | ${skillLevel} | ${tournamentInfo.registrationOptions
+          .filter((option) => options[option.value])
           .map((option) => option.name)}`}
       />
       <StatusBox

@@ -13,8 +13,8 @@ export default function Login() {
         backBtn={() => router.navigate("/")}
       />
       <View style={styles.inputHolder}>
-        <TextInput label="Email or Phone" />
-        <TextInput label="Password" />
+        <TextInput label="Email or Phone" onChange={() => {}} />
+        <TextInput label="Password" onChange={() => {}} />
       </View>
       <Text style={styles.forgotPassword}>Forgot Password?</Text>
       <View style={styles.buttonHolder}>

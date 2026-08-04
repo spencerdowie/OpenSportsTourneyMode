@@ -5,9 +5,11 @@ import Selector from "@/components/selector";
 import StatusBox from "@/components/status-box";
 import TextInput from "@/components/text-input";
 import { router, useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { AppContext } from "../_layout";
 
+//Mock database schema
 type TournamentData = {
   id: number;
   name: string;
@@ -19,11 +21,9 @@ type TournamentData = {
 
 export default function Registration() {
   const [regStep, setRegStep] = useState(1);
-  const [regData, setRegData] = useState<{
-    name: string;
-    skillLevel: string;
-    options: { [option: string]: boolean };
-  }>();
+  const { SetName, SetSkillLevel, options, SetOptions } =
+    useContext(AppContext);
+
   const [tournamentInfo, SetTournamentInfo] = useState<TournamentData>({
     id: -1,
     name: "Test",
@@ -32,7 +32,10 @@ export default function Registration() {
     location: "",
     registrationOptions: []
   });
+
   const { tournament: id } = useLocalSearchParams<{ tournament?: string }>();
+
+  //Grabs the mock tournament data from a json file
   useEffect(() => {
     if (id) {
       let tournament = data.find((t) => t.id == Number.parseInt(id));
@@ -42,8 +45,8 @@ export default function Registration() {
         tournament.registrationOptions.forEach(
           (option) => (options[option.value] = false)
         );
-        console.log(options);
-        setRegData({ name: "", skillLevel: "", options: options });
+        //console.log(options);
+        SetOptions(options);
       }
     }
   }, [tournamentInfo]);
@@ -66,9 +69,7 @@ export default function Registration() {
             placeholder="e.g. Bob"
             onChange={(text) => {
               //console.log(text);
-              if (regData) {
-                setRegData({ ...regData, name: text });
-              }
+              SetName(text);
             }}
           />
           <Selector
@@ -78,12 +79,7 @@ export default function Registration() {
             })}
             onChange={(selection) => {
               //console.log(selection)
-              if (regData) {
-                setRegData({
-                  ...regData,
-                  skillLevel: selection
-                });
-              }
+              SetSkillLevel(selection);
             }}
           />
           <View style={{ marginTop: 20, gap: 20 }}>
@@ -105,16 +101,9 @@ export default function Registration() {
             options={tournamentInfo.registrationOptions}
             onChange={(selection, value) => {
               //console.log(selection);
-              if (regData) {
-                let options = regData.options;
-                if (options) {
-                  options[selection] = value;
-                  setRegData({
-                    ...regData,
-                    options: options
-                  });
-                }
-              }
+              let newOptions = options;
+              newOptions[selection] = value;
+              SetOptions(newOptions);
             }}
             direction="vert"
             multi
@@ -122,12 +111,8 @@ export default function Registration() {
           />
           <Button
             onPress={() => {
-              console.log(regData);
-              if (regData) {
-                router.navigate(
-                  `/tournament/checkin-confirm?tournament=${id}&playerName=${regData.name}&skillLevel=${regData.skillLevel}&options=${JSON.stringify(regData.options)}`
-                );
-              }
+              //console.log(regData);
+              router.navigate(`/tournament/checkin-confirm?tournament=${id}`);
             }}>
             Save & join event
           </Button>
