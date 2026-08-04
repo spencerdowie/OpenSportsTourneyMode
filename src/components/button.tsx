@@ -14,12 +14,14 @@ interface ButtonProps extends React.PropsWithChildren {
 export default function Button({
   children,
   onPress = () => {},
-  type = "dark"
+  type = "dark",
+  disabled = false
 }: ButtonProps) {
-  function GetStyle() {}
   return (
     <Pressable
       style={() => {
+        if (disabled) return styles.buttonDisabled;
+
         switch (type) {
           case "dark":
             return styles.buttonDark;
@@ -31,18 +33,13 @@ export default function Button({
             return styles.buttonError;
         }
       }}
-      onPress={onPress}>
+      onPress={disabled ? null : onPress}>
       <Text
-        style={
-          type == "light"
-            ? [
-                styles.buttonText,
-                {
-                  color: "#13732F"
-                }
-              ]
-            : styles.buttonText
-        }>
+        style={(() => {
+          if (type == "light") return styles.buttonLightText;
+          else if (disabled) return styles.buttonDisabledText;
+          else return buttonTextStyle;
+        })()}>
         {children}
       </Text>
     </Pressable>
@@ -57,7 +54,14 @@ const buttonStyle = StyleSheet.create({
     justifyContent: "center"
   }
 }).button;
-const buttonTextStyle = {};
+const buttonTextStyle = StyleSheet.create({
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold"
+  }
+}).buttonText;
 const styles = StyleSheet.create({
   buttonDark: {
     ...buttonStyle,
@@ -76,13 +80,18 @@ const styles = StyleSheet.create({
     ...buttonStyle,
     backgroundColor: "#A10000"
   },
-  buttonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold"
+  buttonDisabled: {
+    ...buttonStyle,
+    backgroundColor: "lightgrey",
+    borderColor: "grey",
+    borderWidth: 2
   },
   buttonLightText: {
+    ...buttonTextStyle,
     color: "#13732F"
+  },
+  buttonDisabledText: {
+    ...buttonTextStyle,
+    color: "grey"
   }
 });
