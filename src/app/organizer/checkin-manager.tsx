@@ -88,38 +88,16 @@ export default function CheckinManager() {
       (player) => player.status == "checkedin"
     ).length;
     return (
-      <View
-        style={{
-          paddingVertical: 20,
-          paddingHorizontal: 20,
-          width: "100%"
-        }}>
-        <View
-          style={{
-            height: 34,
-            backgroundColor: "lightgrey",
-            borderRadius: 10,
-            overflow: "hidden",
-            flexDirection: "row"
-          }}>
+      <View style={progressBar.holder}>
+        <View style={progressBar.background}>
           <View
-            style={{
-              height: 34,
-              backgroundColor: "seagreen",
-              width: `${(checkedIn / 24) * 100}%`
-            }}></View>
-          <Text
-            style={{
-              color: "white",
-              fontSize: 20,
-              fontWeight: "bold",
-              position: "absolute",
-              width: "100%",
-              textAlign: "center",
-              alignSelf: "center"
-            }}>
-            {checkedIn}/24
-          </Text>
+            style={[
+              progressBar.fill,
+              {
+                width: `${(checkedIn / 24) * 100}%`
+              }
+            ]}></View>
+          <Text style={progressBar.text}>{checkedIn}/24</Text>
         </View>
       </View>
     );
@@ -165,15 +143,8 @@ export default function CheckinManager() {
       <Pressable
         key={index}
         style={[
-          {
-            height: 50,
-            paddingHorizontal: 20,
-            paddingVertical: 10,
-            overflow: "visible",
-            flexDirection: "row",
-            justifyContent: "space-between"
-          },
-          index % 2 == 0 ? { backgroundColor: "#d8ffd4" } : {}
+          styles.playerDetail,
+          index % 2 == 0 ? {} : { backgroundColor: "#d8ffd4" }
         ]}
         onPress={() => {
           if (filter == "registered" || filter == "waitlist") {
@@ -207,18 +178,23 @@ export default function CheckinManager() {
         style={{
           flexDirection: "row",
           gap: 10,
-          justifyContent: "space-around"
+          justifyContent: "space-around",
+          borderBottomWidth: 2,
+          borderColor: "#3B3B3B"
         }}>
         <Pressable
           onPress={() => setFilter("all")}
-          style={[styles.tabs, filter == "all" && { backgroundColor: "grey" }]}>
+          style={[
+            styles.tabs,
+            filter == "all" && { backgroundColor: "#191919" }
+          ]}>
           <Text>All</Text>
         </Pressable>
         <Pressable
           onPress={() => setFilter("checkedin")}
           style={[
             styles.tabs,
-            filter == "checkedin" && { backgroundColor: "#118A2B" }
+            filter == "checkedin" && { backgroundColor: "#13732F" }
           ]}>
           <Text>Checked-in</Text>
         </Pressable>
@@ -226,7 +202,7 @@ export default function CheckinManager() {
           onPress={() => setFilter("registered")}
           style={[
             styles.tabs,
-            filter == "registered" && { backgroundColor: "#A10000" }
+            filter == "registered" && { backgroundColor: "#C88C2C" }
           ]}>
           <Text>Registered</Text>
         </Pressable>
@@ -317,5 +293,49 @@ export default function CheckinManager() {
 }
 
 const styles = StyleSheet.create({
-  tabs: { flexGrow: 1, flexBasis: 0, alignItems: "center" }
+  tabs: {
+    flexGrow: 1,
+    flexBasis: 0,
+    alignItems: "center"
+  },
+  tabsText: {
+    fontSize: 10,
+    color: "#646464"
+  },
+  playerDetail: {
+    height: 50,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    overflow: "visible",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  }
+});
+
+const progressBar = StyleSheet.create({
+  holder: {
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    width: "100%"
+  },
+  background: {
+    height: 34,
+    backgroundColor: "lightgrey",
+    borderRadius: 10,
+    overflow: "hidden",
+    flexDirection: "row"
+  },
+  fill: {
+    height: 34,
+    backgroundColor: "seagreen"
+  },
+  text: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    position: "absolute",
+    width: "100%",
+    textAlign: "center",
+    alignSelf: "center"
+  }
 });

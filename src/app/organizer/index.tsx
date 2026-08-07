@@ -26,14 +26,8 @@ export default function Index() {
     <View style={styles.container}>
       <PageHeader title="Humber Pickleball Tournament" subtitle={"Organizer"} />
       <View style={{ justifyContent: "space-between", flexGrow: 1 }}>
-        <View style={{ alignItems: "center", width: "100%", flexGrow: 1 }}>
-          <View
-            style={{
-              width: "100%",
-              borderBottomWidth: 2,
-              paddingBottom: 12,
-              marginBottom: 18
-            }}>
+        <View id="info-panel-holder" style={styles.infoPanelHolder}>
+          <View style={styles.mainPanel}>
             <OrganizerPanel
               warn={numChecked < 24}
               mainText={`${numChecked}/24`}
@@ -41,12 +35,7 @@ export default function Index() {
               messageText="Check-in closes in 20 min"
             />
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
-              width: "100%"
-            }}>
+          <View style={styles.subPanelHolder}>
             <View style={{ borderRightWidth: 1, flexGrow: 1 }}>
               <OrganizerPanel
                 mainText={numMissing.toString()}
@@ -61,7 +50,7 @@ export default function Index() {
             </View>
           </View>
         </View>
-        <View style={{ flexGrow: 1, justifyContent: "space-between" }}>
+        <View style={styles.buttonHolder}>
           <Button
             type={numChecked < 24 ? "warn" : "light"}
             onPress={() => router.navigate("/organizer/checkin-manager")}>
@@ -98,5 +87,24 @@ const styles = StyleSheet.create({
     margin: "auto",
     paddingVertical: 20
   },
-  panelGrid: { gap: 20 }
+  infoPanelHolder: {
+    alignItems: "center",
+    width: "100%",
+    flexGrow: 1
+  },
+  mainPanel: {
+    width: "100%",
+    borderBottomWidth: 2,
+    paddingBottom: 12,
+    marginBottom: 18
+  },
+  subPanelHolder: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%"
+  },
+  buttonHolder: {
+    flexGrow: 1,
+    justifyContent: "space-between"
+  }
 });
