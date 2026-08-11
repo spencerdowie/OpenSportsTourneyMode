@@ -1,8 +1,8 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function MatchDetail() {
+export default function MatchDetail({ onPress }: { onPress: () => void }) {
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <View id="teams" style={styles.teamRow}>
         <Text style={styles.teamName}>Team 1</Text>
         <Text style={styles.teamName}>vs</Text>

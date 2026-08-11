@@ -54,7 +54,7 @@ export default function Player() {
         detail="Status: Match Ready"
       />
       <TitledSection title="Next Match">
-        <MatchDetail />
+        <MatchDetail onPress={() => router.navigate("/player/match-details")} />
       </TitledSection>
       <TitledSection title="Explore">
         <View style={{ gap: 10 }}>
