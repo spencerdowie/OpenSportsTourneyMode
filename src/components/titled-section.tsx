@@ -1,9 +1,14 @@
-import { Text, View } from "react-native";
+import { Text, View, ViewStyle } from "react-native";
 
 interface TitledSectionProps extends React.PropsWithChildren {
   title: string;
+  style?: ViewStyle;
 }
-export default function TitledSection({ title, children }: TitledSectionProps) {
+export default function TitledSection({
+  title,
+  style,
+  children
+}: TitledSectionProps) {
   return (
     <>
       <View
@@ -15,7 +20,7 @@ export default function TitledSection({ title, children }: TitledSectionProps) {
         }}>
         <Text style={{ fontWeight: "bold" }}>{title}</Text>
       </View>
-      {children}
+      <View style={style}>{children}</View>
     </>
   );
 }

@@ -5,6 +5,7 @@ type StatusProps = {
   title: string;
   detail: string;
   type?: "confirm" | "wait" | "status";
+  style?: StyleSheet;
 };
 
 export default function StatusBox({
