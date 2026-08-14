@@ -1,7 +1,14 @@
 import PageHeader from "@/components/page-header";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View
+} from "react-native";
 const RoundDataConst: {
   team1: string;
   team2: string;
@@ -70,18 +77,33 @@ export default function RoundMatches() {
           flexDirection: "row",
           gap: 10,
           justifyContent: "space-around",
-          borderBottomWidth: 2,
-          borderColor: "#3B3B3B"
+          borderBottomWidth: 1,
+          borderColor: "#646464"
         }}>
         {roundTitles.map((title, index) => (
           <Pressable
             key={index}
             onPress={() => UpdateRoundFilter(index)}
-            style={[
-              //styles.tabs,
-              roundFilter == index && { backgroundColor: "#3E73AA" }
-            ]}>
-            <Text>{title}</Text>
+            style={styles.tabs}>
+            <Text
+              style={[
+                roundFilter == index && {
+                  fontWeight: "bold",
+                  color: "#13732F"
+                }
+              ]}>
+              {title}
+            </Text>
+            {roundFilter == index && (
+              <View
+                style={[
+                  styles.tabLine,
+                  {
+                    borderColor: "#13732F"
+                  }
+                ]}
+              />
+            )}
           </Pressable>
         ))}
       </View>
@@ -95,7 +117,7 @@ export default function RoundMatches() {
         subtitle="Round 1 of 4"
         backBtn={() => router.navigate("/player")}
       />
-      <View style={{ flexGrow: 1 }}>
+      <View style={{ flexGrow: 1, paddingHorizontal: 15 }}>
         {CreatRoundTabs(roundData.length ?? 0)}
         <ScrollView
           id="player-list"
@@ -106,27 +128,71 @@ export default function RoundMatches() {
             overflow: "scroll",
             flexShrink: 1
           }}>
-          {roundData[roundFilter].map((round, index) => (
-            <View key={index}>
-              <View style={{ flexDirection: "row" }}>
-                <Text>{round.team1}</Text>
-                <Text>vs</Text>
-                <Text>{round.team2}</Text>
+          {roundData[roundFilter].map((match, index) => {
+            const statusStyle: TextStyle[] = [
+              {
+                fontWeight: "bold",
+                fontSize: 14,
+                color: "#13732F",
+                backgroundColor: "#D3FFDD",
+                borderRadius: 23,
+                paddingHorizontal: 10,
+                paddingVertical: 5
+              }
+            ];
+            switch (match.status) {
+            }
+            return (
+              <View
+                key={index}
+                style={{
+                  borderBottomWidth: 1.5,
+                  borderColor: "#646464",
+                  paddingVertical: 15,
+                  paddingHorizontal: 5
+                }}>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{ fontWeight: "bold" }}>
+                    {match.team1} vs {match.team2}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 5
+                  }}>
+                  <Text>
+                    {match.location}
+                    {" | "}
+                    {match.time.toLocaleTimeString([], {
+                      hour: "numeric",
+                      minute: "2-digit"
+                    })}
+                  </Text>
+                  <Text style={statusStyle}>{match.status.toUpperCase()}</Text>
+                </View>
               </View>
-              <View style={{ flexDirection: "row" }}>
-                <Text>
-                  {round.location} |
-                  {round.time.toLocaleTimeString([], {
-                    hour: "numeric",
-                    minute: "2-digit"
-                  })}
-                </Text>
-                <Text>{round.status}</Text>
-              </View>
-            </View>
-          ))}
+            );
+          })}
         </ScrollView>
       </View>
     </>
   );
 }
+const styles = StyleSheet.create({
+  tabLine: {
+    width: "80%",
+    borderWidth: 3,
+    borderRadius: 6,
+    borderColor: "#646464",
+    position: "absolute",
+    bottom: -4
+  },
+  tabs: {
+    flexGrow: 1,
+    flexBasis: "auto",
+    alignItems: "center",
+    paddingBottom: 5
+  }
+});
