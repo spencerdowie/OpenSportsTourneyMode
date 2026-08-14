@@ -88,38 +88,16 @@ export default function CheckinManager() {
       (player) => player.status == "checkedin"
     ).length;
     return (
-      <View
-        style={{
-          paddingVertical: 20,
-          paddingHorizontal: 20,
-          width: "100%"
-        }}>
-        <View
-          style={{
-            height: 34,
-            backgroundColor: "lightgrey",
-            borderRadius: 10,
-            overflow: "hidden",
-            flexDirection: "row"
-          }}>
+      <View style={progressBar.holder}>
+        <View style={progressBar.background}>
           <View
-            style={{
-              height: 34,
-              backgroundColor: "seagreen",
-              width: `${(checkedIn / 24) * 100}%`
-            }}></View>
-          <Text
-            style={{
-              color: "white",
-              fontSize: 20,
-              fontWeight: "bold",
-              position: "absolute",
-              width: "100%",
-              textAlign: "center",
-              alignSelf: "center"
-            }}>
-            {checkedIn}/24
-          </Text>
+            style={[
+              progressBar.fill,
+              {
+                width: `${(checkedIn / 24) * 100}%`
+              }
+            ]}></View>
+          <Text style={progressBar.text}>{checkedIn}/24</Text>
         </View>
       </View>
     );
@@ -165,15 +143,8 @@ export default function CheckinManager() {
       <Pressable
         key={index}
         style={[
-          {
-            height: 50,
-            paddingHorizontal: 20,
-            paddingVertical: 10,
-            overflow: "visible",
-            flexDirection: "row",
-            justifyContent: "space-between"
-          },
-          index % 2 == 0 ? { backgroundColor: "#d8ffd4" } : {}
+          styles.playerDetail,
+          index % 2 == 0 ? {} : { backgroundColor: "#d8ffd4" }
         ]}
         onPress={() => {
           if (filter == "registered" || filter == "waitlist") {
@@ -206,37 +177,105 @@ export default function CheckinManager() {
         id="checkin-tabs"
         style={{
           flexDirection: "row",
-          gap: 10,
-          justifyContent: "space-around"
+          borderBottomWidth: 2,
+          borderColor: "#3B3B3B"
         }}>
-        <Pressable
-          onPress={() => setFilter("all")}
-          style={[styles.tabs, filter == "all" && { backgroundColor: "grey" }]}>
-          <Text>All</Text>
+        <Pressable onPress={() => setFilter("all")} style={styles.tabs}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {filter == "all" && (
+              <MaterialDesignIcons name="circle" color="#646464" />
+            )}
+            <Text
+              style={[
+                filter == "all" && { fontWeight: "bold" }
+              ]}>{`All ${PlayerList.length}`}</Text>
+          </View>
+          {filter == "all" && (
+            <View
+              style={[
+                styles.tabLine,
+                {
+                  borderColor: "#646464",
+                  bottom: -3
+                }
+              ]}
+            />
+          )}
         </Pressable>
-        <Pressable
-          onPress={() => setFilter("checkedin")}
-          style={[
-            styles.tabs,
-            filter == "checkedin" && { backgroundColor: "#118A2B" }
-          ]}>
-          <Text>Checked-in</Text>
+        <Pressable onPress={() => setFilter("checkedin")} style={styles.tabs}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {filter == "checkedin" && (
+              <MaterialDesignIcons name="circle" color="#13732F" />
+            )}
+            <Text
+              style={[
+                filter == "checkedin" && { fontWeight: "bold" }
+              ]}>{`Checked In ${PlayerList.reduce<number>(
+              (count, player) =>
+                player.status == "checkedin" ? count + 1 : count,
+              0
+            )}`}</Text>
+            {filter == "checkedin" && (
+              <View
+                style={[
+                  styles.tabLine,
+                  {
+                    borderColor: "#13732F"
+                  }
+                ]}
+              />
+            )}
+          </View>
         </Pressable>
-        <Pressable
-          onPress={() => setFilter("registered")}
-          style={[
-            styles.tabs,
-            filter == "registered" && { backgroundColor: "#A10000" }
-          ]}>
-          <Text>Registered</Text>
+        <Pressable onPress={() => setFilter("registered")} style={styles.tabs}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {filter == "registered" && (
+              <MaterialDesignIcons name="circle" color="#C88C2C" />
+            )}
+            <Text
+              style={[
+                filter == "registered" && { fontWeight: "bold" }
+              ]}>{`Registered ${PlayerList.reduce<number>(
+              (count, player) =>
+                player.status == "registered" ? count + 1 : count,
+              0
+            )}`}</Text>
+            {filter == "registered" && (
+              <View
+                style={[
+                  styles.tabLine,
+                  {
+                    borderColor: "#C88C2C"
+                  }
+                ]}
+              />
+            )}
+          </View>
         </Pressable>
-        <Pressable
-          onPress={() => setFilter("waitlist")}
-          style={[
-            styles.tabs,
-            filter == "waitlist" && { backgroundColor: "#3E73AA" }
-          ]}>
-          <Text>Waitlist</Text>
+        <Pressable onPress={() => setFilter("waitlist")} style={styles.tabs}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {filter == "waitlist" && (
+              <MaterialDesignIcons name="circle" color="#3E73AA" />
+            )}
+            <Text
+              style={[
+                filter == "waitlist" && { fontWeight: "bold" }
+              ]}>{`Waitlist ${PlayerList.reduce<number>(
+              (count, player) =>
+                player.status == "waitlist" ? count + 1 : count,
+              0
+            )}`}</Text>
+            {filter == "waitlist" && (
+              <View
+                style={[
+                  styles.tabLine,
+                  {
+                    borderColor: "#3E73AA"
+                  }
+                ]}
+              />
+            )}
+          </View>
         </Pressable>
       </View>
     );
@@ -317,5 +356,58 @@ export default function CheckinManager() {
 }
 
 const styles = StyleSheet.create({
-  tabs: { flexGrow: 1, flexBasis: 0, alignItems: "center" }
+  tabs: {
+    flexGrow: 1,
+    flexBasis: "auto",
+    alignItems: "center",
+    paddingBottom: 5
+  },
+  tabsText: {
+    fontSize: 10,
+    color: "#646464"
+  },
+  tabLine: {
+    width: "100%",
+    borderWidth: 3,
+    borderRadius: 6,
+    borderColor: "#646464",
+    position: "absolute",
+    bottom: -9
+  },
+  playerDetail: {
+    height: 50,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    overflow: "visible",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  }
+});
+
+const progressBar = StyleSheet.create({
+  holder: {
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    width: "100%"
+  },
+  background: {
+    height: 34,
+    backgroundColor: "lightgrey",
+    borderRadius: 10,
+    overflow: "hidden",
+    flexDirection: "row"
+  },
+  fill: {
+    height: 34,
+    backgroundColor: "seagreen"
+  },
+  text: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    position: "absolute",
+    width: "100%",
+    textAlign: "center",
+    alignSelf: "center"
+  }
 });
