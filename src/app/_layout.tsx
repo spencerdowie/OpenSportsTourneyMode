@@ -18,6 +18,8 @@ export const AppContext = createContext<{
       waitlist: number;
     }>
   >;
+  issue: boolean;
+  SetIssueState: Dispatch<SetStateAction<boolean>>;
 }>({
   name: "",
   SetName: () => {},
@@ -27,6 +29,8 @@ export const AppContext = createContext<{
   SetOptions: () => {},
   checkinState: { checkin: -1, registered: -1, waitlist: -1 },
   SetCheckinState: () => {},
+  issue: false,
+  SetIssueState: () => {},
 });
 
 export default function RootLayout() {
@@ -38,6 +42,8 @@ export default function RootLayout() {
     registered: number;
     waitlist: number;
   }>({ checkin: 10, registered: 2, waitlist: 3 });
+  const [issue, SetIssue] = useState<boolean>(true);
+
   return (
     //These Views create the 'phone' frame around the app
     <View
@@ -71,6 +77,8 @@ export default function RootLayout() {
             SetOptions: SetOptions,
             checkinState: checkinState,
             SetCheckinState: SetCheckinState,
+            issue: issue,
+            SetIssueState: SetIssue,
           }}
         >
           {/*The actual app*/}

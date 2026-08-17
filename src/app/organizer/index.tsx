@@ -10,13 +10,31 @@ import { AppContext } from "../_layout";
 const maxPlayers = 12;
 
 export default function Index() {
-  const { checkinState } = useContext(AppContext);
+  const { checkinState, issue } = useContext(AppContext);
   const missingCheckin = checkinState.checkin < maxPlayers;
+
+  function ShowWarning(show: boolean) {
+    if (show)
+      return (
+        <Text style={{ color: "red" }}>
+          <MaterialDesignIcons
+            name="information-variant-circle"
+            color="red"
+            size={20}
+          />
+          Only enables once all the players are checked-in and issues are
+          resolved.
+        </Text>
+      );
+    return <Text></Text>;
+  }
 
   return (
     <View style={styles.container}>
       <PageHeader title="Humber Pickleball Tournament" subtitle={"Organizer"} />
-      <View style={{ justifyContent: "space-between", flexGrow: 1 }}>
+      <View
+        style={{ justifyContent: "space-between", flexGrow: 1, width: "100%" }}
+      >
         <View id="info-panel-holder" style={styles.infoPanelHolder}>
           <View style={styles.mainPanel}>
             <OrganizerPanel
@@ -49,22 +67,14 @@ export default function Index() {
             Check-in Players
           </Button>
           <Button
-            type="error"
+            type={issue ? "error" : "light"}
             onPress={() => router.navigate("/organizer/command-centre")}
           >
             Command Centre
           </Button>
           <View>
-            <Button disabled>Schedule Round 1</Button>
-            <Text style={{ color: "red" }}>
-              <MaterialDesignIcons
-                name="information-variant-circle"
-                color="red"
-                size={20}
-              />
-              Only enables once all the players are checked-in and issues are
-              resolved.
-            </Text>
+            <Button disabled={missingCheckin || issue}>Schedule Round 1</Button>
+            {ShowWarning(missingCheckin || issue)}
           </View>
         </View>
       </View>

@@ -2,46 +2,58 @@ import {
   GestureResponderEvent,
   Pressable,
   StyleSheet,
-  Text
+  Text,
+  TextStyle,
+  ViewStyle,
 } from "react-native";
 
 interface ButtonProps extends React.PropsWithChildren {
   onPress?: (event: GestureResponderEvent) => void;
   type?: "dark" | "light" | "warn" | "error";
   disabled?: boolean;
+  styleOverride?: ViewStyle;
+  textStyleOverride?: TextStyle;
 }
 
 export default function Button({
   children,
   onPress = () => {},
   type = "dark",
-  disabled = false
+  disabled = false,
+  styleOverride,
+  textStyleOverride,
 }: ButtonProps) {
-  return (
-    <Pressable
-      style={() => {
-        if (disabled) return styles.buttonDisabled;
+  const style: ViewStyle[] = [];
 
-        switch (type) {
-          case "dark":
-            return styles.buttonDark;
-          case "light":
-            return styles.buttonLight;
-          case "warn":
-            return styles.buttonWarn;
-          case "error":
-            return styles.buttonError;
-        }
-      }}
-      onPress={disabled ? null : onPress}>
-      <Text
-        style={(() => {
-          if (type == "light") return styles.buttonLightText;
-          else if (disabled) return styles.buttonDisabledText;
-          else return buttonTextStyle;
-        })()}>
-        {children}
-      </Text>
+  if (disabled) style.push(styles.buttonDisabled);
+  else
+    switch (type) {
+      case "dark":
+        style.push(styles.buttonDark);
+        break;
+      case "light":
+        style.push(styles.buttonLight);
+        break;
+      case "warn":
+        style.push(styles.buttonWarn);
+        break;
+      case "error":
+        style.push(styles.buttonError);
+        break;
+    }
+  if (styleOverride) style.push(styleOverride);
+
+  const textStyle: TextStyle[] = [];
+
+  if (type == "light") textStyle.push(styles.buttonLightText);
+  else if (disabled) textStyle.push(styles.buttonDisabledText);
+  else textStyle.push(buttonTextStyle);
+
+  if (textStyleOverride) textStyle.push(textStyleOverride);
+
+  return (
+    <Pressable style={style} onPress={disabled ? null : onPress}>
+      <Text style={textStyle}>{children}</Text>
     </Pressable>
   );
 }
@@ -51,47 +63,48 @@ const buttonStyle = StyleSheet.create({
     borderRadius: 5,
     width: "100%",
     height: 50,
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 }).button;
 const buttonTextStyle = StyleSheet.create({
   buttonText: {
     color: "white",
     textAlign: "center",
     fontSize: 20,
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+    marginVertical: "auto",
+  },
 }).buttonText;
 const styles = StyleSheet.create({
   buttonDark: {
     ...buttonStyle,
-    backgroundColor: "#13732F"
+    backgroundColor: "#13732F",
   },
   buttonLight: {
     ...buttonStyle,
     borderColor: "#13732F",
-    borderWidth: 2
+    borderWidth: 2,
   },
   buttonWarn: {
     ...buttonStyle,
-    backgroundColor: "#C88C2C"
+    backgroundColor: "#C88C2C",
   },
   buttonError: {
     ...buttonStyle,
-    backgroundColor: "#A10000"
+    backgroundColor: "#A10000",
   },
   buttonDisabled: {
     ...buttonStyle,
     backgroundColor: "lightgrey",
     borderColor: "grey",
-    borderWidth: 2
+    borderWidth: 2,
   },
   buttonLightText: {
     ...buttonTextStyle,
-    color: "#13732F"
+    color: "#13732F",
   },
   buttonDisabledText: {
     ...buttonTextStyle,
-    color: "grey"
-  }
+    color: "grey",
+  },
 });
