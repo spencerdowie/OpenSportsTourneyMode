@@ -16,7 +16,7 @@ export const AppContext = createContext<{
   skillLevel: "",
   SetSkillLevel: () => {},
   options: {},
-  SetOptions: () => {}
+  SetOptions: () => {},
 });
 
 export default function RootLayout() {
@@ -30,8 +30,9 @@ export default function RootLayout() {
         flexGrow: 1,
         backgroundColor: "grey",
         justifyContent: "center",
-        alignItems: "center"
-      }}>
+        alignItems: "center",
+      }}
+    >
       <View
         style={{
           width: 402,
@@ -42,8 +43,9 @@ export default function RootLayout() {
           overflow: "hidden",
           backgroundColor: "white",
           paddingHorizontal: 20,
-          paddingTop: 65
-        }}>
+          paddingTop: 65,
+        }}
+      >
         <AppContext.Provider
           value={{
             name: name,
@@ -51,10 +53,16 @@ export default function RootLayout() {
             skillLevel: skillLevel,
             SetSkillLevel,
             options: options,
-            SetOptions: SetOptions
-          }}>
+            SetOptions: SetOptions,
+          }}
+        >
           {/*The actual app*/}
-          <Stack screenOptions={{ headerShown: false }} />
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: "white" },
+            }}
+          />
         </AppContext.Provider>
       </View>
     </View>
