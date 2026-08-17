@@ -8,7 +8,7 @@ import { Pressable, Text, View } from "react-native";
 
 export default function MatchDetails() {
   return (
-    <View style={{ paddingHorizontal: 20 }}>
+    <View>
       <PageHeader
         title="Matches Details"
         subtitle="Current Match"

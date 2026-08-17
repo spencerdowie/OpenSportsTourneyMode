@@ -24,12 +24,13 @@ export default function ConfirmCheckin() {
     organizer: { orgName: "Test", admin: "Test" },
     date: "",
     location: "",
-    registrationOptions: []
+    registrationOptions: [],
   });
   const { name, skillLevel, options } = useContext(AppContext);
   const { tournament: id } = useLocalSearchParams<{
     tournament?: string;
   }>();
+  const [toggleState, SetToggleState] = useState<boolean>(false);
 
   useEffect(() => {
     if (id) {
@@ -67,7 +68,12 @@ export default function ConfirmCheckin() {
         <Text style={{ fontWeight: "bold", color: "#13732F" }}>
           Notify me when assigned
         </Text>
-        <Switch />
+        <Switch
+          value={toggleState}
+          thumbColor={toggleState ? "#13732F" : "#D9D9D9"}
+          trackColor={{ false: "#D9D9D9", true: "#D9D9D9" }}
+          onValueChange={() => SetToggleState(!toggleState)}
+        />
       </View>
       <Button type="light">Get the app</Button>
       <Button onPress={() => router.navigate("/player?checkin=true")}>
@@ -83,6 +89,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 350,
     margin: "auto",
-    gap: 10
-  }
+    gap: 10,
+  },
 });
