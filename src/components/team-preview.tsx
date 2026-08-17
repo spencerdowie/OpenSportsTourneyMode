@@ -1,16 +1,19 @@
 import MaterialDesignIcons from "@react-native-vector-icons/material-design-icons";
-import { Text, View } from "react-native";
+import { router } from "expo-router";
+import { Pressable, Text, View } from "react-native";
 
 type TeamPreviewProps = {
   teamName: string;
   players: string[];
   isPlayer?: boolean;
+  link?: boolean;
 };
 
 export default function TeamPreview({
   teamName,
   players,
   isPlayer,
+  link,
 }: TeamPreviewProps) {
   if (isPlayer) teamName += " (Me)";
   return (
@@ -34,15 +37,18 @@ export default function TeamPreview({
       </Text>
       <View>
         {players.map((playerName) => (
-          <View
+          <Pressable
             key={playerName}
             style={{ flexDirection: "row", alignItems: "center" }}
+            onPress={() => {
+              if (link) router.navigate("/player/team-information");
+            }}
           >
             <MaterialDesignIcons name="circle" size={45} color="lightgrey" />
             <Text style={{ fontWeight: "bold", fontSize: 16 }}>
               {playerName}
             </Text>
-          </View>
+          </Pressable>
         ))}
       </View>
     </View>

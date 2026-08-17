@@ -10,22 +10,22 @@ const RoundDataConst: MatchInfo[][] = [
       team2: "Team 2",
       location: "Court 2",
       status: "live",
-      time: new Date("mon jun 26, 2026 18:00")
+      time: new Date("mon jun 26, 2026 18:00"),
     },
     {
       team1: "Team 3",
       team2: "Team 4",
       location: "Court 1",
       status: "upcoming",
-      time: new Date("mon jun 26, 2026 20:00")
+      time: new Date("mon jun 26, 2026 20:00"),
     },
     {
       team1: "Team 5",
       team2: "Team 6",
       location: "Court 4",
       status: "completed",
-      time: new Date("mon jun 26, 2026 15:00")
-    }
+      time: new Date("mon jun 26, 2026 15:00"),
+    },
   ],
   [
     {
@@ -33,8 +33,8 @@ const RoundDataConst: MatchInfo[][] = [
       team2: "Team 4",
       location: "Court 1",
       status: "upcoming",
-      time: new Date("10pm")
-    }
+      time: new Date("10pm"),
+    },
   ],
   [
     {
@@ -42,8 +42,8 @@ const RoundDataConst: MatchInfo[][] = [
       team2: "Team 4",
       location: "Court 1",
       status: "upcoming",
-      time: new Date("10pm")
-    }
+      time: new Date("10pm"),
+    },
   ],
   [
     {
@@ -51,9 +51,9 @@ const RoundDataConst: MatchInfo[][] = [
       team2: "Team 4",
       location: "Court 1",
       status: "upcoming",
-      time: new Date("10pm")
-    }
-  ]
+      time: new Date("10pm"),
+    },
+  ],
 ];
 export default function RoundMatches() {
   const [roundData, SetRoundData] = useState<MatchInfo[][]>([[]]);
@@ -66,12 +66,12 @@ export default function RoundMatches() {
   function UpdateRoundFilter(newRound: number) {
     const boundedRoundNumber = Math.min(
       Math.max(newRound, 0),
-      roundData.length - 1
+      roundData.length - 1,
     );
     SetRoundFilter(boundedRoundNumber);
   }
 
-  function CreatRoundTabs(numRounds: number) {
+  function CreateRoundTabs(numRounds: number) {
     const roundTitles = [];
     for (let i = 0; i < numRounds; i++) {
       roundTitles.push(`Round ${i + 1}`);
@@ -84,20 +84,23 @@ export default function RoundMatches() {
           gap: 10,
           justifyContent: "space-around",
           borderBottomWidth: 1,
-          borderColor: "#646464"
-        }}>
+          borderColor: "#646464",
+        }}
+      >
         {roundTitles.map((title, index) => (
           <Pressable
             key={index}
             onPress={() => UpdateRoundFilter(index)}
-            style={styles.tabs}>
+            style={styles.tabs}
+          >
             <Text
               style={[
                 roundFilter == index && {
                   fontWeight: "bold",
-                  color: "#13732F"
-                }
-              ]}>
+                  color: "#13732F",
+                },
+              ]}
+            >
               {title}
             </Text>
             {roundFilter == index && (
@@ -105,8 +108,8 @@ export default function RoundMatches() {
                 style={[
                   styles.tabLine,
                   {
-                    borderColor: "#13732F"
-                  }
+                    borderColor: "#13732F",
+                  },
                 ]}
               />
             )}
@@ -123,17 +126,18 @@ export default function RoundMatches() {
         subtitle="Round 1 of 5"
         backBtn={() => router.navigate("/player")}
       />
-      <View style={{ flexGrow: 1, paddingHorizontal: 15 }}>
-        {CreatRoundTabs(roundData.length ?? 0)}
+      <View style={{ flexGrow: 1 }}>
+        {CreateRoundTabs(roundData.length ?? 0)}
         <ScrollView
           id="player-list"
           style={{
-            maxHeight: 650
+            maxHeight: 650,
           }}
           contentContainerStyle={{
-            overflow: "scroll",
-            flexShrink: 1
-          }}>
+            overscrollBehaviorY: "contain",
+            flexShrink: 1,
+          }}
+        >
           {roundData[roundFilter].map((match) => MatchCompact(match))}
         </ScrollView>
       </View>
@@ -147,12 +151,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderColor: "#646464",
     position: "absolute",
-    bottom: -4
+    bottom: -4,
   },
   tabs: {
     flexGrow: 1,
     flexBasis: "auto",
     alignItems: "center",
-    paddingBottom: 5
-  }
+    paddingBottom: 5,
+  },
 });
