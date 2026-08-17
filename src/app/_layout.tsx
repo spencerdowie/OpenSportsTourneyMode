@@ -39,7 +39,10 @@ export default function RootLayout() {
           borderWidth: 3,
           borderColor: "black",
           borderRadius: 20,
-          overflow: "hidden"
+          overflow: "hidden",
+          backgroundColor: "white",
+          paddingHorizontal: 20,
+          paddingTop: 65
         }}>
         <AppContext.Provider
           value={{

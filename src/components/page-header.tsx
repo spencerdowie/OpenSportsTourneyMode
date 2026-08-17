@@ -17,12 +17,17 @@ export default function PageHeader({
       style={{
         flexDirection: "row",
         justifyContent: "flex-start",
-        width: "100%",
-        marginVertical: 10
+        marginVertical: 10,
+        alignSelf: "flex-start"
       }}>
-      {backBtn ? (
-        <MaterialDesignIcons name="chevron-left" size={34} onPress={backBtn} />
-      ) : null}
+      {backBtn && (
+        <MaterialDesignIcons
+          name="chevron-left"
+          size={56}
+          onPress={backBtn}
+          style={{ display: "contents" }}
+        />
+      )}
       <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
@@ -32,11 +37,13 @@ export default function PageHeader({
 }
 
 const styles = StyleSheet.create({
-  header: { width: "100%" },
+  header: { flexWrap: "wrap", flexShrink: 1 },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
-    textAlign: "left"
+    textAlign: "left",
+    overflow: "hidden",
+    flexWrap: "wrap"
   },
   subtitle: {
     fontSize: 14,

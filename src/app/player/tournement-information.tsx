@@ -1,4 +1,3 @@
-import Button from "@/components/button";
 import PageHeader from "@/components/page-header";
 import StatusBox from "@/components/status-box";
 import TitledSection from "@/components/titled-section";
@@ -16,20 +15,25 @@ export default function RoundMatches() {
       <TitledSection title="Humber Pickleball Tournament ">
         <StatusBox
           title="Mon, June 26, 2026"
-          detail="Humber Polytechnic North Campus"
+          detail="04:00 PM - 10:00 PM
+          
+Humber Polytechnic North Campus
+Court 1-6, Athletics Building"
         />
       </TitledSection>
       <TitledSection title="Format">
         <FlatList
           data={[
             { title: "Type:", text: "Round Robin (4 Rounds)" },
-            { title: "Mtches:", text: "2 games per match" },
+            { title: "Matches:", text: "2 games per match" },
             { title: "Team:", text: "Duos (Mixed skills)" }
           ]}
           renderItem={({ item }) => (
             <View style={{ flexDirection: "row" }}>
-              <Text>{item.title}</Text>
-              <Text>{item.text}</Text>
+              <Text style={{ fontWeight: "bold", minWidth: 100 }}>
+                {item.title}
+              </Text>
+              <Text style={{ flexGrow: 1 }}>{item.text}</Text>
             </View>
           )}
         />
@@ -37,24 +41,28 @@ export default function RoundMatches() {
       <TitledSection title="Rules">
         <FlatList
           data={[
-            { title: "Type:", text: "Round Robin (4 Rounds)" },
-            { title: "Mtches:", text: "2 games per match" },
-            { title: "Team:", text: "Duos (Mixed skills)" }
+            { title: "Scoring:", text: "Rally scoring to 11 (Win by 2)" },
+            { title: "Check-in:", text: "Closes 15 mins before Round 1" },
+            { title: "Court Switch:", text: "Change sides at 6 points" },
+            {
+              title: "Tie-Breaker",
+              text: "Head-to-head, then point differential"
+            }
           ]}
           renderItem={({ item }) => (
             <View style={{ flexDirection: "row" }}>
-              <Text>{item.title}</Text>
-              <Text>{item.text}</Text>
+              <Text style={{ fontWeight: "bold", minWidth: 100 }}>
+                {item.title}
+              </Text>
+              <Text style={{ flexGrow: 1 }}>{item.text}</Text>
             </View>
           )}
         />
       </TitledSection>
       <TitledSection title="Organizer">
-        <Text>Josh Clavir</Text>
+        <Text style={{ fontWeight: "bold", fontSize: 16 }}>Josh Clavir</Text>
+        <Text>UX Design Program Coordinator</Text>
       </TitledSection>
-      <Button>
-        <Text>View Team & Match Details</Text>
-      </Button>
     </>
   );
 }

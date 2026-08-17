@@ -40,15 +40,15 @@
             }
         ],
         "format": {
-            "type": "",
-            "matches": "",
-            "teams": ""
+            "type": "Round Robin (5 Rounds)",
+            "matches": "2 games per match",
+            "teams": "Duos (Mixed skills)"
         },
         "rules": {
-            "scoring": "",
-            "checkin": "",
-            "courtSwitch": "",
-            "tieBreak": ""
+            "scoring": "Rally scoring to 11 (Win by 2)",
+            "check-in": "Closes 15 mins before Round 1",
+            "courtSwitch": "Change sides at 6 points",
+            "tie-breaker": "Head-to-head, then point differential"
         }
     }
 ]

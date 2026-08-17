@@ -4,7 +4,7 @@ import PageHeader from "@/components/page-header";
 import StatusBox from "@/components/status-box";
 import { router, useLocalSearchParams } from "expo-router";
 import { useContext, useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Switch, Text, View } from "react-native";
 import { AppContext } from "../_layout";
 
 //Mock database schema
@@ -63,8 +63,14 @@ export default function ConfirmCheckin() {
         title="Next update appears here"
         detail="Court, team, start time, and any organizer messages."
       />
+      <View style={{ flexDirection: "row", gap: 5, alignSelf: "flex-end" }}>
+        <Text style={{ fontWeight: "bold", color: "#13732F" }}>
+          Notify me when assigned
+        </Text>
+        <Switch />
+      </View>
       <Button type="light">Get the app</Button>
-      <Button onPress={() => router.navigate("/player")}>
+      <Button onPress={() => router.navigate("/player?checkin=true")}>
         Go to Player Dashboard
       </Button>
     </View>

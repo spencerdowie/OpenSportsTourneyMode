@@ -13,15 +13,36 @@ const RoundDataConst: MatchInfo[] = [
     team2: "Team 2",
     location: "Court 2",
     status: "live",
-    time: new Date("mon jun 26, 2026 18:00"),
+    time: new Date("mon jun 26, 2026 18:00")
   },
   {
-    team1: "Team 3",
+    team1: "Team 1",
     team2: "Team 4",
     location: "Court 1",
     status: "upcoming",
-    time: new Date("mon jun 26, 2026 20:00"),
+    time: new Date("mon jun 26, 2026 21:00")
   },
+  {
+    team1: "Team 1",
+    team2: "Team 6",
+    location: "Court 4",
+    status: "completed",
+    time: new Date("mon jun 26, 2026 17:00")
+  },
+  {
+    team1: "Team 5",
+    team2: "Team 1",
+    location: "Court 5",
+    status: "completed",
+    time: new Date("mon jun 26, 2026 16:00")
+  },
+  {
+    team1: "Team 3",
+    team2: "Team 1",
+    location: "Court 3",
+    status: "completed",
+    time: new Date("mon jun 26, 2026 15:00")
+  }
 ];
 
 export default function TeamInformation() {

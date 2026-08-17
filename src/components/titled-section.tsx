@@ -18,7 +18,7 @@ export default function TitledSection({
           borderColor: "#E3E3E3",
           marginVertical: 15
         }}>
-        <Text style={{ fontWeight: "bold" }}>{title}</Text>
+        <Text style={{ fontWeight: "bold", fontSize: 18 }}>{title}</Text>
       </View>
       <View style={style}>{children}</View>
     </>

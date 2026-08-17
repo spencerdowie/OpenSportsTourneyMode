@@ -19,18 +19,16 @@ export default function MatchDetails() {
           style={{
             flexDirection: "row",
             width: "100%",
-            justifyContent: "space-around",
-          }}
-        >
+            justifyContent: "space-around"
+          }}>
           <Pressable
             style={{
               borderRadius: 5,
               borderColor: "black",
               borderWidth: 1.5,
               alignItems: "center",
-              width: 110,
-            }}
-          >
+              width: 110
+            }}>
             <Text style={{ fontWeight: "bold", fontSize: 16 }}>Team 1</Text>
             <Text style={{ fontWeight: "bold", fontSize: 32 }}>10</Text>
           </Pressable>
@@ -44,9 +42,8 @@ export default function MatchDetails() {
                 backgroundColor: "#D3FFDD",
                 borderRadius: 23,
                 paddingHorizontal: 10,
-                paddingVertical: 5,
-              }}
-            >
+                paddingVertical: 5
+              }}>
               Live
             </Text>
           </View>
@@ -56,9 +53,8 @@ export default function MatchDetails() {
               borderColor: "black",
               borderWidth: 1.5,
               alignItems: "center",
-              width: 110,
-            }}
-          >
+              width: 110
+            }}>
             <Text style={{ fontWeight: "bold", fontSize: 16 }}>Team 2</Text>
             <Text style={{ fontWeight: "bold", fontSize: 32 }}>8</Text>
           </Pressable>
@@ -69,7 +65,7 @@ export default function MatchDetails() {
               borderWidth: 1,
               flexGrow: 1,
               height: 0,
-              borderColor: "#E3E3E3",
+              borderColor: "#E3E3E3"
             }}
           />
           <Text style={{ fontWeight: "bold", color: "#646464" }}>
@@ -80,7 +76,7 @@ export default function MatchDetails() {
               borderWidth: 1,
               flexGrow: 1,
               height: 0,
-              borderColor: "#E3E3E3",
+              borderColor: "#E3E3E3"
             }}
           />
         </View>
@@ -88,14 +84,14 @@ export default function MatchDetails() {
           <Text>Report Dispute</Text>
         </Button>
       </TitledSection>
-      <TitledSection title="Teams" style={{ gap: 10 }}>
+      <View style={{ gap: 10, marginTop: 12 }}>
         <TeamPreview
           teamName="Team 1"
           players={["Player W (Me)", "Player X"]}
           isPlayer
         />
         <TeamPreview teamName="Team 2" players={["Player Y", "Player Z"]} />
-      </TitledSection>
+      </View>
       <TitledSection title="Match Info" style={{ gap: 10 }}>
         <View style={{ flexDirection: "row", gap: 25 }}>
           <MaterialDesignIcons name="calendar" size={30} />
