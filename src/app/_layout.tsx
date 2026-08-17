@@ -10,6 +10,16 @@ export const AppContext = createContext<{
   SetSkillLevel: Dispatch<SetStateAction<string>>;
   options: { [option: string]: boolean };
   SetOptions: Dispatch<SetStateAction<{ [option: string]: boolean }>>;
+  checkinState: { checkin: number; registered: number; waitlist: number };
+  SetCheckinState: Dispatch<
+    SetStateAction<{
+      checkin: number;
+      registered: number;
+      waitlist: number;
+    }>
+  >;
+  issue: boolean;
+  SetIssueState: Dispatch<SetStateAction<boolean>>;
 }>({
   name: "",
   SetName: () => {},
@@ -17,12 +27,23 @@ export const AppContext = createContext<{
   SetSkillLevel: () => {},
   options: {},
   SetOptions: () => {},
+  checkinState: { checkin: -1, registered: -1, waitlist: -1 },
+  SetCheckinState: () => {},
+  issue: false,
+  SetIssueState: () => {},
 });
 
 export default function RootLayout() {
   const [name, SetName] = useState<string>("");
   const [skillLevel, SetSkillLevel] = useState<string>("");
   const [options, SetOptions] = useState<{ [option: string]: boolean }>({});
+  const [checkinState, SetCheckinState] = useState<{
+    checkin: number;
+    registered: number;
+    waitlist: number;
+  }>({ checkin: 10, registered: 2, waitlist: 3 });
+  const [issue, SetIssue] = useState<boolean>(true);
+
   return (
     //These Views create the 'phone' frame around the app
     <View
@@ -54,6 +75,10 @@ export default function RootLayout() {
             SetSkillLevel,
             options: options,
             SetOptions: SetOptions,
+            checkinState: checkinState,
+            SetCheckinState: SetCheckinState,
+            issue: issue,
+            SetIssueState: SetIssue,
           }}
         >
           {/*The actual app*/}
