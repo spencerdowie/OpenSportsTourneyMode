@@ -24,7 +24,8 @@ export default function Index() {
           onPress={() =>
             router.navigate("/tournament/registration?tournament=1")
           }
-          type="light">
+          type="light"
+        >
           Continue as Guest
         </Button>
       </View>
@@ -35,29 +36,30 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
   tourneyInfo: {
     marginTop: 80,
-    marginBottom: 70
+    marginBottom: 70,
   },
   tourneyTitle: {
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   osTitle: {
     fontStyle: "italic",
     color: "#13732F",
     fontWeight: "bold",
     fontSize: 20,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   osLogo: {
     width: 128,
-    height: 128
+    height: 128,
   },
   loginBtnHolder: {
     marginTop: 70,
-    gap: 22
-  }
+    gap: 22,
+    width: 350,
+  },
 });

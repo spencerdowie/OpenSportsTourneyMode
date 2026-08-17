@@ -21,7 +21,7 @@ type TournamentData = {
 
 export default function Registration() {
   const [regStep, setRegStep] = useState(1);
-  const { SetName, SetSkillLevel, options, SetOptions } =
+  const { name, SetName, skillLevel, SetSkillLevel, options, SetOptions } =
     useContext(AppContext);
 
   const [tournamentInfo, SetTournamentInfo] = useState<TournamentData>({
@@ -30,7 +30,7 @@ export default function Registration() {
     organizer: { orgName: "Test", admin: "Test" },
     date: "",
     location: "",
-    registrationOptions: []
+    registrationOptions: [],
   });
 
   const { tournament: id } = useLocalSearchParams<{ tournament?: string }>();
@@ -43,7 +43,7 @@ export default function Registration() {
         SetTournamentInfo(tournament);
         let options: { [option: string]: boolean } = {};
         tournament.registrationOptions.forEach(
-          (option) => (options[option.value] = false)
+          (option) => (options[option.value] = false),
         );
         //console.log(options);
         SetOptions(options);
@@ -83,7 +83,13 @@ export default function Registration() {
             }}
           />
           <View style={{ marginTop: 20, gap: 20 }}>
-            <Button onPress={() => setRegStep(2)}>Next</Button>
+            <Button
+              onPress={() => {
+                if (name && skillLevel) setRegStep(2);
+              }}
+            >
+              Next
+            </Button>
             <Button type="light">I already have an account</Button>
           </View>
         </View>
@@ -113,7 +119,8 @@ export default function Registration() {
             onPress={() => {
               //console.log(regData);
               router.navigate(`/tournament/checkin-confirm?tournament=${id}`);
-            }}>
+            }}
+          >
             Save & join event
           </Button>
         </View>
@@ -143,6 +150,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 350,
     margin: "auto",
-    gap: 20
-  }
+    gap: 20,
+  },
 });
