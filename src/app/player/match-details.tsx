@@ -1,5 +1,6 @@
 import Button from "@/components/button";
 import PageHeader from "@/components/page-header";
+import TeamPreview from "@/components/team-preview";
 import TitledSection from "@/components/titled-section";
 import MaterialDesignIcons from "@react-native-vector-icons/material-design-icons";
 import { router } from "expo-router";
@@ -18,16 +19,18 @@ export default function MatchDetails() {
           style={{
             flexDirection: "row",
             width: "100%",
-            justifyContent: "space-around"
-          }}>
+            justifyContent: "space-around",
+          }}
+        >
           <Pressable
             style={{
               borderRadius: 5,
               borderColor: "black",
               borderWidth: 1.5,
               alignItems: "center",
-              width: 110
-            }}>
+              width: 110,
+            }}
+          >
             <Text style={{ fontWeight: "bold", fontSize: 16 }}>Team 1</Text>
             <Text style={{ fontWeight: "bold", fontSize: 32 }}>10</Text>
           </Pressable>
@@ -41,8 +44,9 @@ export default function MatchDetails() {
                 backgroundColor: "#D3FFDD",
                 borderRadius: 23,
                 paddingHorizontal: 10,
-                paddingVertical: 5
-              }}>
+                paddingVertical: 5,
+              }}
+            >
               Live
             </Text>
           </View>
@@ -52,8 +56,9 @@ export default function MatchDetails() {
               borderColor: "black",
               borderWidth: 1.5,
               alignItems: "center",
-              width: 110
-            }}>
+              width: 110,
+            }}
+          >
             <Text style={{ fontWeight: "bold", fontSize: 16 }}>Team 2</Text>
             <Text style={{ fontWeight: "bold", fontSize: 32 }}>8</Text>
           </Pressable>
@@ -64,7 +69,7 @@ export default function MatchDetails() {
               borderWidth: 1,
               flexGrow: 1,
               height: 0,
-              borderColor: "#E3E3E3"
+              borderColor: "#E3E3E3",
             }}
           />
           <Text style={{ fontWeight: "bold", color: "#646464" }}>
@@ -75,7 +80,7 @@ export default function MatchDetails() {
               borderWidth: 1,
               flexGrow: 1,
               height: 0,
-              borderColor: "#E3E3E3"
+              borderColor: "#E3E3E3",
             }}
           />
         </View>
@@ -84,62 +89,12 @@ export default function MatchDetails() {
         </Button>
       </TitledSection>
       <TitledSection title="Teams" style={{ gap: 10 }}>
-        <View
-          style={{
-            borderWidth: 2,
-            borderColor: "#13732F",
-            borderRadius: 5,
-            paddingHorizontal: 10
-          }}>
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 16,
-              textAlign: "center",
-              borderBottomWidth: 2
-            }}>
-            Team 1 (Me)
-          </Text>
-          <View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <MaterialDesignIcons name="circle" size={45} color="lightgrey" />
-              <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-                Player W (Me)
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <MaterialDesignIcons name="circle" size={45} color="lightgrey" />
-              <Text style={{ fontWeight: "bold", fontSize: 16 }}>Player X</Text>
-            </View>
-          </View>
-        </View>
-        <View
-          style={{
-            borderWidth: 2,
-            borderColor: "#13732F",
-            borderRadius: 5,
-            paddingHorizontal: 10
-          }}>
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 16,
-              textAlign: "center",
-              borderBottomWidth: 2
-            }}>
-            Team 2
-          </Text>
-          <View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <MaterialDesignIcons name="circle" size={45} color="lightgrey" />
-              <Text style={{ fontWeight: "bold", fontSize: 16 }}>Player Y</Text>
-            </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <MaterialDesignIcons name="circle" size={45} color="lightgrey" />
-              <Text style={{ fontWeight: "bold", fontSize: 16 }}>Player Z</Text>
-            </View>
-          </View>
-        </View>
+        <TeamPreview
+          teamName="Team 1"
+          players={["Player W (Me)", "Player X"]}
+          isPlayer
+        />
+        <TeamPreview teamName="Team 2" players={["Player Y", "Player Z"]} />
       </TitledSection>
       <TitledSection title="Match Info" style={{ gap: 10 }}>
         <View style={{ flexDirection: "row", gap: 25 }}>
