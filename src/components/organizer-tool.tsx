@@ -60,7 +60,13 @@ export default function OrganizerTool({
 }
 
 const styles = StyleSheet.create({
-  base: { flexDirection: "row", alignItems: "center", marginVertical: 3 },
+  base: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderColor: "lightgrey",
+  },
   warn: {
     borderColor: "#A10000",
     borderWidth: 2,

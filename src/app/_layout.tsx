@@ -65,6 +65,7 @@ export default function RootLayout() {
           backgroundColor: "white",
           paddingHorizontal: 20,
           paddingTop: 65,
+          paddingBottom: 60,
         }}
       >
         <AppContext.Provider

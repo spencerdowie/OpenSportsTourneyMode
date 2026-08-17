@@ -11,7 +11,7 @@ export default function CommandCentre() {
     <View>
       <PageHeader
         title="Command Centre"
-        subtitle="Few open issues found"
+        subtitle={issue ? "Few open issues found" : "Manage your tournament"}
         backBtn={() => router.navigate("/organizer")}
       />
       <View>
@@ -28,7 +28,7 @@ export default function CommandCentre() {
           <OrganizerTool
             icon="home-switch"
             name="Resources"
-            description="Court 4 Unavailable"
+            description="Manage Resources"
             actionName="Manage"
             actionPress={() => null}
           />

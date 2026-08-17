@@ -16,7 +16,7 @@ export default function Index() {
   function ShowWarning(show: boolean) {
     if (show)
       return (
-        <Text style={{ color: "red" }}>
+        <Text style={{ color: "red", height: 45 }}>
           <MaterialDesignIcons
             name="information-variant-circle"
             color="red"
@@ -26,14 +26,31 @@ export default function Index() {
           resolved.
         </Text>
       );
-    return <Text></Text>;
+    return <Text style={{ height: 45 }}></Text>;
   }
 
   return (
     <View style={styles.container}>
-      <PageHeader title="Humber Pickleball Tournament" subtitle={"Organizer"} />
+      <PageHeader
+        title="Humber Pickleball Tournament"
+        subtitle="OpenSports Mon, June 26"
+      />
+      <Text
+        style={{
+          borderTopWidth: 1,
+          borderColor: "lightgrey",
+          width: "100%",
+          color: "grey",
+        }}
+      >
+        Humber Polytechnic North Campus
+      </Text>
       <View
-        style={{ justifyContent: "space-between", flexGrow: 1, width: "100%" }}
+        style={{
+          justifyContent: "space-between",
+          flexGrow: 1,
+          width: "100%",
+        }}
       >
         <View id="info-panel-holder" style={styles.infoPanelHolder}>
           <View style={styles.mainPanel}>
@@ -60,18 +77,20 @@ export default function Index() {
           </View>
         </View>
         <View style={styles.buttonHolder}>
-          <Button
-            type={missingCheckin ? "warn" : "light"}
-            onPress={() => router.navigate("/organizer/checkin-manager")}
-          >
-            Check-in Players
-          </Button>
-          <Button
-            type={issue ? "error" : "light"}
-            onPress={() => router.navigate("/organizer/command-centre")}
-          >
-            Command Centre
-          </Button>
+          <View style={{ gap: 30 }}>
+            <Button
+              type={missingCheckin ? "warn" : "light"}
+              onPress={() => router.navigate("/organizer/checkin-manager")}
+            >
+              Check-in Players
+            </Button>
+            <Button
+              type={issue ? "error" : "light"}
+              onPress={() => router.navigate("/organizer/command-centre")}
+            >
+              Command Centre
+            </Button>
+          </View>
           <View>
             <Button disabled={missingCheckin || issue}>Schedule Round 1</Button>
             {ShowWarning(missingCheckin || issue)}
@@ -88,12 +107,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 350,
     margin: "auto",
-    paddingVertical: 20,
   },
   infoPanelHolder: {
     alignItems: "center",
     width: "100%",
     flexGrow: 1,
+    marginTop: 45,
   },
   mainPanel: {
     width: "100%",
@@ -107,7 +126,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   buttonHolder: {
-    flexGrow: 1,
+    flexGrow: 2,
     justifyContent: "space-between",
   },
 });
