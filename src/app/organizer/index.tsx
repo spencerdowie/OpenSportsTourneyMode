@@ -16,15 +16,18 @@ export default function Index() {
   function ShowWarning(show: boolean) {
     if (show)
       return (
-        <Text style={{ color: "red", height: 45 }}>
+        <View style={{ flexDirection: "row" }}>
           <MaterialDesignIcons
             name="information-variant-circle"
             color="red"
             size={20}
+            style={{ alignSelf: "center" }}
           />
-          Only enables once all the players are checked-in and issues are
-          resolved.
-        </Text>
+          <Text style={{ color: "red", height: 45, marginLeft: 10 }}>
+            Only enables once all the players are checked-in and issues are
+            resolved.
+          </Text>
+        </View>
       );
     return <Text style={{ height: 45 }}></Text>;
   }
@@ -40,18 +43,16 @@ export default function Index() {
           borderTopWidth: 1,
           borderColor: "lightgrey",
           width: "100%",
-          color: "grey",
-        }}
-      >
+          color: "grey"
+        }}>
         Humber Polytechnic North Campus
       </Text>
       <View
         style={{
           justifyContent: "space-between",
           flexGrow: 1,
-          width: "100%",
-        }}
-      >
+          width: "100%"
+        }}>
         <View id="info-panel-holder" style={styles.infoPanelHolder}>
           <View style={styles.mainPanel}>
             <OrganizerPanel
@@ -80,14 +81,12 @@ export default function Index() {
           <View style={{ gap: 30 }}>
             <Button
               type={missingCheckin ? "warn" : "light"}
-              onPress={() => router.navigate("/organizer/checkin-manager")}
-            >
+              onPress={() => router.navigate("/organizer/checkin-manager")}>
               Check-in Players
             </Button>
             <Button
               type={issue ? "error" : "light"}
-              onPress={() => router.navigate("/organizer/command-centre")}
-            >
+              onPress={() => router.navigate("/organizer/command-centre")}>
               Command Centre
             </Button>
           </View>
@@ -106,27 +105,27 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     width: 350,
-    margin: "auto",
+    margin: "auto"
   },
   infoPanelHolder: {
     alignItems: "center",
     width: "100%",
     flexGrow: 1,
-    marginTop: 45,
+    marginTop: 45
   },
   mainPanel: {
     width: "100%",
     borderBottomWidth: 2,
     paddingBottom: 12,
-    marginBottom: 18,
+    marginBottom: 18
   },
   subPanelHolder: {
     flexDirection: "row",
     justifyContent: "space-around",
-    width: "100%",
+    width: "100%"
   },
   buttonHolder: {
     flexGrow: 2,
-    justifyContent: "space-between",
-  },
+    justifyContent: "space-between"
+  }
 });

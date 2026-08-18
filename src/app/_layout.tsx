@@ -1,3 +1,4 @@
+import HomeBar from "@/components/home-bar";
 import { Stack } from "expo-router";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import { View } from "react-native";
@@ -30,7 +31,7 @@ export const AppContext = createContext<{
   checkinState: { checkin: -1, registered: -1, waitlist: -1 },
   SetCheckinState: () => {},
   issue: false,
-  SetIssueState: () => {},
+  SetIssueState: () => {}
 });
 
 export default function RootLayout() {
@@ -51,9 +52,8 @@ export default function RootLayout() {
         flexGrow: 1,
         backgroundColor: "grey",
         justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+        alignItems: "center"
+      }}>
       <View
         style={{
           width: 402,
@@ -64,10 +64,8 @@ export default function RootLayout() {
           overflow: "hidden",
           backgroundColor: "white",
           paddingHorizontal: 20,
-          paddingTop: 65,
-          paddingBottom: 60,
-        }}
-      >
+          paddingTop: 65
+        }}>
         <AppContext.Provider
           value={{
             name: name,
@@ -79,16 +77,16 @@ export default function RootLayout() {
             checkinState: checkinState,
             SetCheckinState: SetCheckinState,
             issue: issue,
-            SetIssueState: SetIssue,
-          }}
-        >
+            SetIssueState: SetIssue
+          }}>
           {/*The actual app*/}
           <Stack
             screenOptions={{
               headerShown: false,
-              contentStyle: { backgroundColor: "white" },
+              contentStyle: { backgroundColor: "white" }
             }}
           />
+          <HomeBar />
         </AppContext.Provider>
       </View>
     </View>
