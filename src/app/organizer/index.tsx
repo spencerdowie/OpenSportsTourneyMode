@@ -87,7 +87,17 @@ export default function Index() {
             <Button
               type={issue ? "error" : "light"}
               onPress={() => router.navigate("/organizer/command-centre")}>
-              Command Centre
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+                <Text>Command Centre</Text>
+                {issue && (
+                  <MaterialDesignIcons
+                    name="numeric-1-circle"
+                    color="white"
+                    size={26}
+                  />
+                )}
+              </View>
             </Button>
           </View>
           <View>
